@@ -1,17 +1,21 @@
 import { Component, Input, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked,
-  OnDestroy } from '@angular/core';
+  OnDestroy, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'fa-lifecycle',
   template: `
     <ng-content></ng-content>
     <hr>
-    <p>{{ bindable }}</p>
+    <p #boutPar>{{ bindable }}</p>
+    <p>{{boutPar.textContent}}</p>
   `,
   styles: []
 })
 export class LifecycleComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked,
   AfterViewInit, AfterViewChecked, OnDestroy {
+
+  @ViewChild('boutPar')
+  boutPar: HTMLElement;
 
   @Input() bindable = 1000;
 
@@ -31,6 +35,7 @@ export class LifecycleComponent implements OnInit, OnChanges, DoCheck, AfterCont
   }
   ngAfterContentChecked(){
     this.log('ngAfterContentChecked');
+    console.log(this.boutPar);
   }
   ngAfterViewInit(){
     this.log('ngAfterViewInit');
